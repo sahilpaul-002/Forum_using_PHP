@@ -1,3 +1,4 @@
+<!-- Inserting data into the database logic -->
 <?php
     //Include/require the necessary files
     require "partials/_dbCreate.php";
@@ -163,7 +164,7 @@
             {
                 echo '<div class="jumbotron jumbotron-fluid">
                 <div class="container">
-                    <p class="display-4">No threads found!</p>
+                    <p class="display-4">No comments found!</p>
                     <p class="lead">Be the first person to ask a question.</p>
                 </div>
                 </div>';

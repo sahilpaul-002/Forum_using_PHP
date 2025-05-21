@@ -68,15 +68,17 @@ echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       </li>
     </ul>
     <div class="row mx-2">';
+    // Check if the user is logged in then allw user to search, and show Welcome with user name
     if($login)
     {
         echo '<form class="form-inline my-2 my-lg-0" action="/forum/search.php" method="GET">
-        <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search Threads" aria-label="Search">
         <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
         <p class="text-light my-0 mx-2">Welcome ' . $_SESSION["userName"] . '</p> 
         <button type="button" class="btn btn-outline-success mx-2" data-toggle="modal" data-target="#logoutModal">Log Out</button> 
         </form>';
     }
+    // If user not loggedin then show Login or sign up button
     else
     {
       echo '<form class="form-inline my-2 my-lg-0">

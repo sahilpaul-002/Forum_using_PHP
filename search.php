@@ -20,7 +20,7 @@ require "partials/_createTable.php";
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>
         #foot {
-            min-height: 433px;
+            min-height: 443px;
         }
     </style>
     <title>iDiscuss - Coding Forums</title>
@@ -28,13 +28,39 @@ require "partials/_createTable.php";
   <body>
     <!-- Header -->
     <?php require "partials/_header.php"; ?>
-
-    <div class="search my-5">
-        <h1 class="py-4>Search results for <?php echo '$_GET["search"]'?></h1>
+    <!-- Display search results -->
+    <div class="search my-5" id="foot">
+        <h1 class="py-4">Search results for <?php echo htmlspecialchars($_GET["search"])?></h1>
         <div class="result">
-            <h1><a href="#" class="text-dark">Loren Ipsum</a></h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum, magnam vel assumenda necessitatibus 
-                incidunt accusamus architecto dignissimos ex libero natus, magni omnis repellendus recusandae atque quo sit enim modi doloribus.</p>
+            <?php
+              //Capture the category id from the url
+              $search = htmlspecialchars($_GET["search"]);
+              $sql = "SELECT * FROM `threads` WHERE MATCH(`threadTitle`,`threadDescription`) AGAINST ('\"$search\"')";
+              $result = mysqli_query($conn, $sql);
+              //Display the category information using the category id
+              $noResult = true;
+              while ($row = mysqli_fetch_assoc($result))
+              {
+                $noResult = false;
+                $threadTitle = $row["threadTitle"];
+                $threadDescription = $row["threadDescription"];
+                echo '<div class="media mt-4">
+                <img src="img\default user.png" width="34px" class="mr-3" alt="Default user">
+                <div class="media-body">
+                <h5 class="mt-0"><a href="thread.php?threadId=' . $row["threadId"] . '">' . $threadTitle . '</a></h5>
+                ' . $threadDescription .'
+                  </div>
+                </div>';
+                }
+                if ($noResult)
+                {
+                  echo '<div class="jumbotron jumbotron-fluid">
+                  <div class="container">
+                  <p class="display-4">No threads found!</p>
+                  </div>
+                  </div>';
+                }          
+            ?>
         </div>
     </div>
 

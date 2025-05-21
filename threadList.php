@@ -1,3 +1,4 @@
+<!-- Inserting data into database logic -->
 <?php
     require "partials/_dbCreate.php";
     require "partials/_createTable.php";
@@ -140,7 +141,7 @@
             $catId = $_GET["catId"];
             $sql = "SELECT * FROM `threads` WHERE `threadCategoryId` = '$catId'";
             $result = mysqli_query($conn, $sql);
-            //Display the category information using the category id
+            //Display the threads by filtering threadCategoryId
             $noResult = true;
             while ($row = mysqli_fetch_assoc($result))
             {

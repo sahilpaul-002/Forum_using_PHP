@@ -46,6 +46,7 @@ $sql = "CREATE TABLE IF NOT EXISTS `threads` (
     `threadUserId` INT(10) NOT NULL,
     `threadCategoryId` INT(10) NOT NULL,
     `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FULLTEXT (`threadTitle`, `threadDescription`),
     FOREIGN KEY (threadUserId) REFERENCES `users`(userId) ON DELETE CASCADE,
     FOREIGN KEY (threadCategoryId) REFERENCES `categories`(categoryId) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci";
